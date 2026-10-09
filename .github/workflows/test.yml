@@ -1,0 +1,128 @@
+name: Test
+
+# All three systems for the code. On Linux, two more things: the lab
+# session typed again into the real recorders, so the fixtures in testdata
+# cannot drift from what bash, zsh, asciinema, script, ttyrec, termtosvg and
+# svg-term write today; and the binary itself, end to end.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+
+      - name: Formatting
+        shell: bash
+        run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Tests
+        run: go test -v ./...
+
+      - name: The other systems still compile
+        shell: bash
+        run: |
+          for target in windows linux darwin; do
+            GOOS=$target go vet .
+            GOOS=$target go build -o /dev/null .
+          done
+
+  # The session in testdata/record, typed a key at a time into real shells
+  # under each recorder, and the same checks run on what comes out.
+  recorders:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+
+      - name: Record the lab session
+        run: |
+          docker build -q -t outtakes-lab testdata/record
+          mkdir -p "$RUNNER_TEMP/lab"
+          chmod 777 "$RUNNER_TEMP/lab"
+          docker run --rm --hostname lab -e TZ=America/Bogota \
+            -v "$RUNNER_TEMP/lab:/out" outtakes-lab python3 /usr/local/bin/drive.py
+          ls -l "$RUNNER_TEMP/lab"
+
+      - name: The same checks, on the fresh recordings
+        run: |
+          OUTTAKES_LAB="$RUNNER_TEMP/lab" go test -v -count=1 \
+            -run 'EveryRecorder|TheKeyboard|WhatNoPlayer|WhereInTheWorld' .
+
+  # The binary on the lab recordings: the exit code, the masking the README
+  # promises, and a secret that must not come out even with --reveal.
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+
+      - name: A folder of recordings
+        run: |
+          go build -o outtakes-check .
+          set +e
+          ./outtakes-check testdata > masked.txt
+          code=$?
+          set -e
+          cat masked.txt
+          if [ "$code" -ne 1 ]; then
+            echo "a password the keyboard recorded should exit 1, and the exit code was $code"
+            exit 1
+          fi
+          for name in demo@lab build01.corp db01.acme /home/demo; do
+            if grep -q "$name" masked.txt; then
+              echo "the masked report named $name"
+              exit 1
+            fi
+          done
+          ./outtakes-check --reveal testdata > revealed.txt || true
+          grep -q "demo@lab" revealed.txt || { echo "--reveal did not name the account"; exit 1; }
+          for secret in Tr0ub4dor hunter2-correct whsec-placeholder correct-horse-battery; do
+            if grep -q "$secret" masked.txt revealed.txt; then
+              echo "a secret reached the report: $secret"
+              exit 1
+            fi
+          done
+
+      - name: Two folders compared
+        run: |
+          mkdir -p one two
+          cp testdata/hands-ana-* one/
+          cp testdata/hands-ben-* two/
+          ./outtakes-check --reveal one two > pair.txt || true
+          cat pair.txt
+          grep -q "MATCHES" pair.txt || { echo "two folders were not compared"; exit 1; }
+
+      - name: Nothing to read
+        run: |
+          mkdir -p empty
+          set +e
+          ./outtakes-check empty > /dev/null
+          code=$?
+          set -e
+          [ "$code" -eq 3 ] || { echo "an empty folder should exit 3, got $code"; exit 1; }

@@ -1,0 +1,9 @@
+outtakes
+outtakes.exe
+outtakes-check
+outtakes-check.exe
+dist/
+
+*.test
+*.test.exe
+*.out

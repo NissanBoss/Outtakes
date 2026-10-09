@@ -1,0 +1,14 @@
+*.go text eol=lf
+*.md text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+*.py text eol=lf
+*.tape text eol=lf
+Dockerfile text eol=lf
+
+# The recordings are kept byte for byte as the recorders wrote them: a
+# carriage return turned into a line ending is a different session.
+testdata/*.cast binary
+testdata/*.svg binary
+testdata/*.ttyrec binary
+testdata/bash-script-* binary

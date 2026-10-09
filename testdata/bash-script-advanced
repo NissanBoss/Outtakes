@@ -1,0 +1,17 @@
+Script started on 2026-10-09 15:35:49-05:00 [COMMAND="bash -i" TERM="xterm-256color" TTY="/dev/pts/4" COLUMNS="80" LINES="24"]
+[?2004h]0;demo@lab: ~[01;32mdemo@lab[00m:[01;34m~[00m$ ccdd  ~~//wwoorrkk//aaccmmee--bbiilllliinngg
+[?2004l[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ eehhcc[K[Kcchhoo  hheelllloo  wwoorrlldd
+[?2004lhello world
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ eexxppoorrtt  DDBB__PPAASSSSWWOORRDD==hhuunntteerr22--ccoorrrreecctt--ssttaappllee[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Krreeaadd  --ss  --pp  ''PPaasssswwoorrdd::  ''  ppww;;  eecchhoo
+[?2004lPassword: Tr0ub4dor&3
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ ccaatt  ..eennvv
+[?2004lSTRIPE_WEBHOOK_SECRET=whsec-placeholder-for-tests
+DB_HOST=db01.acme.internal
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ cclleeaarr
+[?2004l[H[2J[3J[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ rrmm  --rrff  //ttmmpp//oolldd--bbuuiillddss^C[?2004l[?2004h[?2004l
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ eecchhoo  ddeeppllooyyiinngg  ttoo  bbuuiilldd0011..ccoorrpp..aaccmmee..iinntteerrnnaall
+[?2004ldeploying to build01.corp.acme.internal
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ eexxiitt
+[?2004lexit
+
+Script done on 2026-10-09 15:36:49-05:00 [COMMAND_EXIT_CODE="0"]

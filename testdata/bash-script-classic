@@ -1,0 +1,17 @@
+Script started on 2026-10-09 15:35:17-05:00 [COMMAND="bash -i" TERM="xterm-256color" TTY="/dev/pts/3" COLUMNS="80" LINES="24"]
+[?2004h]0;demo@lab: ~[01;32mdemo@lab[00m:[01;34m~[00m$ cd ~/work/acme-billing
+[?2004l[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ ehc[K[Kcho hello world
+[?2004lhello world
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ export DB_PASSWORD=hunter2-correct-staple[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kread -s -p 'Password: ' pw; echo
+[?2004lPassword: 
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ cat .env
+[?2004lSTRIPE_WEBHOOK_SECRET=whsec-placeholder-for-tests
+DB_HOST=db01.acme.internal
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ clear
+[?2004l[H[2J[3J[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ rm -rf /tmp/old-builds^C[?2004l[?2004h[?2004l
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ echo deploying to build01.corp.acme.internal
+[?2004ldeploying to build01.corp.acme.internal
+[?2004h]0;demo@lab: ~/work/acme-billing[01;32mdemo@lab[00m:[01;34m~/work/acme-billing[00m$ exit
+[?2004lexit
+
+Script done on 2026-10-09 15:35:49-05:00 [COMMAND_EXIT_CODE="0"]
